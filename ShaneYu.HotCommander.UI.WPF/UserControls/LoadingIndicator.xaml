@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="ShaneYu.HotCommander.UI.WPF.UserControls.LoadingIndicator"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:metrocontrols="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:userControls="clr-namespace:ShaneYu.HotCommander.UI.WPF.UserControls"
+             mc:Ignorable="d"
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance userControls:LoadingIndicator}"
+             Panel.ZIndex="{x:Static system:Int32.MaxValue}"
+             Visibility="Collapsed">
+    <Grid>
+        <Canvas Background="{Binding ProgressBackground, FallbackValue={x:Static Brushes.White}}"
+                Opacity="{Binding ProgressOpacity, FallbackValue=.85}" />
+
+        <TextBlock HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="{Binding ProgressFontSize, FallbackValue=10}"
+                   FontWeight="{Binding ProgressFontWeight, FallbackValue={x:Static FontWeights.SemiBold}}"
+                   Foreground="{Binding ProgressForeground, FallbackValue={x:Static Brushes.Black}}"
+                   Text="{Binding ProgressText, FallbackValue='Loading'}" />
+
+        <metrocontrols:ProgressRing HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Width="{Binding ProgressSpinnerWidth, FallbackValue=90}"
+                               Height="{Binding ProgressSpinnerHeight, FallbackValue=90}"
+                               Foreground="{Binding ProgressSpinnerForeground, FallbackValue={x:Static Brushes.Black}}" />
+    </Grid>
+</UserControl>

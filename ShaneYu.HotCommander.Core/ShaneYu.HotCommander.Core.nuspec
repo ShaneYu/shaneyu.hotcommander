@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>ShaneYu.HotCommander.Core</id>
+    <version>$version$</version>
+    <authors>Shane Yu</authors>
+    <owners>Shane Yu</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The HotCommander core; a hot key and voice activated command bar utility.</description>
+    <copyright>Copyright 2016</copyright>
+    <tags>utility, command, hot, shortcut, productivity</tags>
+  </metadata>
+  <files>
+    <file src="bin\$configuration$\Autofac.dll" target="lib" />
+    <file src="bin\$configuration$\JetBrains.Annotations.dll" target="lib" />
+    <file src="bin\$configuration$\Newtonsoft.Json.dll" target="lib" />
+    <file src="bin\$configuration$\ShaneYu.HotCommander.Core.dll" target="lib" />
+  </files>
+</package>

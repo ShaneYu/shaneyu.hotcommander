@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>3.10</ProductVersion>
+    <ProjectGuid>39d0eca5-91cb-4a7a-bb32-2abeec8a21e9</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>HotCommander</OutputName>
+    <OutputType>Package</OutputType>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+    <SuppressIces>ICE61</SuppressIces>
+    <DefineConstants>Debug</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+    <SuppressIces>ICE61</SuppressIces>
+    <DefineConstants>Release</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <DefineConstants>Debug;</DefineConstants>
+    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+    <SuppressIces>ICE61</SuppressIces>
+    <DefineConstants>Debug</DefineConstants>
+    <VerboseOutput>True</VerboseOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+    <SuppressIces>ICE61</SuppressIces>
+    <DefineConstants>Release</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUtilExtension">
+      <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
+      <Name>WixUtilExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixNetFxExtension">
+      <HintPath>$(WixExtDir)\WixNetFxExtension.dll</HintPath>
+      <Name>WixNetFxExtension</Name>
+    </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="LicenseAgreementDlg_HK.wxs" />
+    <Compile Include="Product.wxs" />
+    <Compile Include="WixUI_HK.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Product_en-us.wxl" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Variables.wxi" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="images\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ShaneYu.HotCommander.UI.WPF\ShaneYu.HotCommander.UI.WPF.csproj">
+      <Name>HotCommanderUI</Name>
+      <Project>{e050fcdd-26b4-4f2f-8e72-6f356537e256}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLDIR</RefTargetDir>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(WixTargetsPath)" />
+  <UsingTask TaskName="GetVersionParts" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+    <ParameterGroup>
+      <AssemblyPath ParameterType="System.String" Required="true" />
+      <MajorVersion ParameterType="System.Int32" Output="true" />
+      <MinorVersion ParameterType="System.Int32" Output="true" />
+      <BuildVersion ParameterType="System.Int32" Output="true" />
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System.Diagnostics" />
+      <Code Type="Fragment" Language="cs"><![CDATA[
+        Log.LogMessage("Getting version details of assembly at: " + this.AssemblyPath, MessageImportance.High);
+        
+        Version v = Version.Parse(FileVersionInfo.GetVersionInfo(this.AssemblyPath).FileVersion);
+        
+        this.MajorVersion = v.Major;
+        this.MinorVersion = v.Minor;
+        this.BuildVersion = v.Build;
+      ]]></Code>
+    </Task>
+  </UsingTask>
+  <Target Name="BeforeBuild">
+    <GetVersionParts AssemblyPath="..\ShaneYu.HotCommander.UI.WPF\bin\$(Platform)\$(Configuration)\HotCommander.exe">
+      <Output TaskParameter="MajorVersion" PropertyName="MajorVersionNumber" />
+      <Output TaskParameter="MinorVersion" PropertyName="MinorVersionNumber" />
+      <Output TaskParameter="BuildVersion" PropertyName="BuildVersionNumber" />
+    </GetVersionParts>
+    <GetAssemblyIdentity AssemblyFiles="..\ShaneYu.HotCommander.UI.WPF\bin\$(Platform)\$(Configuration)\HotCommander.exe">
+      <Output TaskParameter="Assemblies" ItemName="AssemblyVersions" />
+    </GetAssemblyIdentity>
+    <CreateProperty Value="$(OutputName)_%(AssemblyVersions.Version)_$(Platform)-$(MajorVersionNumber)">
+      <Output TaskParameter="Value" PropertyName="TargetName" />
+    </CreateProperty>
+    <CreateProperty Value="$(TargetName)$(TargetExt)">
+      <Output TaskParameter="Value" PropertyName="TargetFileName" />
+    </CreateProperty>
+    <CreateProperty Value="$(TargetDir)$(TargetFileName)">
+      <Output TaskParameter="Value" PropertyName="TargetPath" />
+    </CreateProperty>
+    <PropertyGroup>
+      <DefineConstants>$(DefineConstants);AssemblyVersion=%(AssemblyVersions.Version)</DefineConstants>
+    </PropertyGroup>
+  </Target>
+</Project>

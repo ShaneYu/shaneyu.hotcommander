@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1ED65F7A-C631-4747-A74A-D7CCD2B0B4E7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ShaneYu.HotCommander.Core</RootNamespace>
+    <AssemblyName>ShaneYu.HotCommander.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=4.3.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.4.3.0\lib\net45\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="JetBrains.Annotations, Version=10.2.1.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\packages\JetBrains.Annotations.10.2.1\lib\net\JetBrains.Annotations.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.2-beta2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Attributes\CannotBeEmptyAttribute.cs" />
+    <Compile Include="Attributes\CustomValidatorAttribute.cs" />
+    <Compile Include="Attributes\DisplayGroupAttribute.cs" />
+    <Compile Include="Attributes\DisplayGroupOrderAttribute.cs" />
+    <Compile Include="Attributes\DisplayModeAttribute.cs" />
+    <Compile Include="Attributes\DisplayOrderAttribute.cs" />
+    <Compile Include="Attributes\FileSelectorAttribute.cs" />
+    <Compile Include="Attributes\FolderSelectorAttribute.cs" />
+    <Compile Include="Attributes\InternalHotCommandAttribute.cs" />
+    <Compile Include="Commands\Alias\AliasCommand.cs" />
+    <Compile Include="Commands\Alias\AliasConfiguration.cs" />
+    <Compile Include="Commands\BasicCommandStep.cs" />
+    <Compile Include="Commands\Cmd\CmdCommand.cs" />
+    <Compile Include="Commands\Cmd\CmdConfiguration.cs" />
+    <Compile Include="Commands\HotCommandBase.cs" />
+    <Compile Include="Commands\HotCommandConfigurationBase.cs" />
+    <Compile Include="Commands\HotCommandStepBase.cs" />
+    <Compile Include="Commands\TokenCommandStep.cs" />
+    <Compile Include="Commands\IHotCommand.cs" />
+    <Compile Include="Commands\IHotCommandConfiguration.cs" />
+    <Compile Include="Commands\IHotCommandStep.cs" />
+    <Compile Include="Commands\LaunchExecutable\LaunchExecutableCommand.cs" />
+    <Compile Include="Commands\LaunchExecutable\LaunchExecutableConfiguration.cs" />
+    <Compile Include="Commands\LaunchUrl\ILaunchUrlConfiguration.cs" />
+    <Compile Include="Commands\LaunchUrl\LaunchUrlCommand.cs" />
+    <Compile Include="Extensions\HotCommandExtensions.cs" />
+    <Compile Include="Helpers\BrowserHelper.cs" />
+    <Compile Include="Helpers\PropertyCopier.cs" />
+    <Compile Include="Helpers\RegistryHelper.cs" />
+    <Compile Include="Helpers\ValidationHelper.cs" />
+    <Compile Include="HotCommandManager.cs" />
+    <Compile Include="IHotCommandManager.cs" />
+    <Compile Include="IoC\DependencyResolver.cs" />
+    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="Modules\IHotCommandModule.cs" />
+    <Compile Include="Modules\IHotCommandModuleIoc.cs" />
+    <Compile Include="Modules\IModuleSettingsProvider.cs" />
+    <Compile Include="Modules\ModuleSettingsProviderBase.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Searching\DefaultSearchStrategy.cs" />
+    <Compile Include="Searching\ISearchStrategy.cs" />
+    <Compile Include="Settings\EventArgs\SettingsEventArgs.cs" />
+    <Compile Include="Settings\EventArgs\SettingsFailureEventArgs.cs" />
+    <Compile Include="Settings\ISettingsProvider.cs" />
+    <Compile Include="Settings\SettingsBase.cs" />
+    <Compile Include="Settings\SettingsProviderBase.cs" />
+    <Compile Include="Settings\SettingsResult.cs" />
+    <Compile Include="Storage\CollectionStorageResult.cs" />
+    <Compile Include="Storage\ICollectionStorageStrategy.cs" />
+    <Compile Include="Storage\IStorageStrategy.cs" />
+    <Compile Include="Storage\StorageFailureDetail.cs" />
+    <Compile Include="Storage\StorageResult.cs" />
+    <Compile Include="Validation\IDirectoryExistsValidator.cs" />
+    <Compile Include="Validation\IFileExistsValidator.cs" />
+    <Compile Include="Validation\IPropertyValidator.cs" />
+    <Compile Include="Validation\ResolvedValidator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="ShaneYu.HotCommander.Core.nuspec" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

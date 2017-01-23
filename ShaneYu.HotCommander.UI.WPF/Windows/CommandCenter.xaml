@@ -1,0 +1,414 @@
+﻿<metrocontrols:MetroWindow x:Class="ShaneYu.HotCommander.UI.WPF.Windows.CommandCenter"
+                           xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                           xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                           xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                           xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                           xmlns:metrocontrols="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                           xmlns:models="clr-namespace:ShaneYu.HotCommander.UI.WPF.Models"
+                           xmlns:system="clr-namespace:System;assembly=mscorlib"
+                           xmlns:userControls="clr-namespace:ShaneYu.HotCommander.UI.WPF.UserControls"
+                           Icon="../app.ico"
+                           Title="Command Center"
+                           Height="700"
+                           Width="1200"
+                           GlowBrush="{DynamicResource AccentColorBrush}"
+                           NonActiveGlowBrush="Red"
+                           BorderBrush="{DynamicResource AccentColorBrush}"
+                           NonActiveBorderBrush="Red"
+                           BorderThickness="1"
+                           ResizeMode="CanResizeWithGrip"
+                           WindowStartupLocation="CenterScreen"
+                           AllowsTransparency="True"
+                           mc:Ignorable="d"
+                           d:DesignWidth="1200"
+                           d:DesignHeight="700"
+                           d:DataContext="{d:DesignInstance models:CommandCenterViewModel}">
+    <metrocontrols:MetroWindow.RightWindowCommands>
+        <metrocontrols:WindowCommands ShowLastSeparator="False">
+            <Button Command="{Binding ToggleSettingsFlyout}"
+                    ToolTip="Settings"
+                    Tag="0">
+                <Rectangle Width="22"
+                           Height="22"
+                           Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Uniform"
+                                     Visual="{StaticResource appbar_settings}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+            <Button Command="{Binding ToggleAboutFlyout}"
+                    ToolTip="About"
+                    Tag="1">
+                <Rectangle Width="22"
+                           Height="22"
+                           Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Uniform"
+                                     Visual="{StaticResource appbar_question}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </metrocontrols:WindowCommands>
+    </metrocontrols:MetroWindow.RightWindowCommands>
+
+    <metrocontrols:MetroWindow.Flyouts>
+        <metrocontrols:FlyoutsControl>
+            <metrocontrols:Flyout x:Name="SettingsFlyout"
+                                  Header="Settings"
+                                  Width="300"
+                                  Position="Right"
+                                  IsModal="True" />
+                <metrocontrols:Flyout x:Name="AboutFlyout"
+                                  Header="About"
+                                  Width="300"
+                                  Position="Right"
+                                  IsModal="True">
+                <Grid Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Margin="10"
+                               TextWrapping="Wrap"
+                               Text="This is the Hot Commander, a useful tool for anyone who wants to create quick run commands at the tip of a finger." />
+
+                    <TextBlock Grid.Row="1"
+                               Margin="10,0,10,10"
+                               TextWrapping="Wrap"
+                               Text="The command center is used to manage all of your commands; view/edit/delete/new etc. Use this to customize your Hot Commander and create quick and easy commands you can fire off with very little mouse/keyboard interaction." />
+
+                    <Grid Grid.Row="4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0"
+                                   Margin="10"
+                                   FontSize="6pt"
+                                   Text="{Binding ApplicationVersion, Mode=OneTime, StringFormat=Version: {0}}" />
+
+                        <TextBlock Grid.Column="1"
+                                   Margin="10"
+                                   FontSize="6pt"
+                                   TextAlignment="Right"
+                                   HorizontalAlignment="Right"
+                                   Text="{Binding Source={x:Static system:DateTime.Today}, StringFormat='© {0:yyyy}. All Rights Reserved.'}" />
+
+                    </Grid>
+                </Grid>
+            </metrocontrols:Flyout>
+            <metrocontrols:Flyout x:Name="EditorFlyout"
+                                  Header="Create Command"
+                                  Width="500"
+                                  Position="Right"
+                                  IsModal="True">
+                <userControls:ModelEditor x:Name="modelEditor" />
+            </metrocontrols:Flyout>
+        </metrocontrols:FlyoutsControl>
+    </metrocontrols:MetroWindow.Flyouts>
+
+    <Grid>
+        <userControls:LoadingIndicator x:Name="loadingIndicator" d:IsHidden="true" />
+
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="20*" />
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       Content="Filter"
+                       HorizontalAlignment="Stretch"
+                       FontSize="20"
+                       BorderBrush="{DynamicResource AccentColorBrush}"
+                       BorderThickness="0, 0, 0, 1" />
+
+                <Label Grid.Row="0"
+                       Grid.Column="2"
+                       Content="Grouping"
+                       HorizontalAlignment="Stretch"
+                       FontSize="20"
+                       BorderBrush="{DynamicResource AccentColorBrush}"
+                       BorderThickness="0, 0, 0, 1" />
+
+                <Grid Grid.Row="1"
+                      Grid.Column="0"
+                      Margin="0, 10, 0, 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           HorizontalAlignment="Right"
+                           Margin="5"
+                           Content="Search:" />
+
+                    <TextBox x:Name="txtFilterSearch"
+                             Grid.Row="0"
+                             Grid.Column="1"
+                             Margin="0, 5, 5, 5"
+                             Text="{Binding Path=FilterSearch, UpdateSourceTrigger=PropertyChanged}"
+                             metrocontrols:TextBoxHelper.ClearTextButton="True" />
+
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           HorizontalAlignment="Right"
+                           Margin="5"
+                           Content="Type(s):" />
+
+                    <ComboBox x:Name="cmbFilterTypes"
+                              Grid.Row="1"
+                              Grid.Column="1"
+                              Margin="0, 5, 5, 5"
+                              DisplayMemberPath="Name"
+                              SelectedValuePath="CommandType"
+                              SelectedValue="{Binding Path=FilterType}">
+                        <ComboBox.Resources>
+                            <CollectionViewSource x:Key="Items" Source="{Binding Path=CommandTypes}" />
+                        </ComboBox.Resources>
+                        <ComboBox.ItemsSource>
+                            <CompositeCollection>
+                                <ComboBoxItem Content="All Types" />
+                                <CollectionContainer Collection="{Binding Source={StaticResource Items}}" />
+                            </CompositeCollection>
+                        </ComboBox.ItemsSource>
+                    </ComboBox>
+
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           HorizontalAlignment="Right"
+                           Margin="5"
+                           Content="Status:" />
+
+                    <CheckBox x:Name="chkFilterStatus"
+                              Grid.Row="2"
+                              Grid.Column="1"
+                              VerticalAlignment="Center"
+                              Margin="0, 5, 5, 5"
+                              Content="{Binding Path=FilterStatus, Converter={StaticResource NullableBooleanStringConverter}, ConverterParameter='Enabled|Disabled|Any'}"
+                              IsChecked="{Binding Path=FilterStatus}"
+                              IsThreeState="True" />
+                </Grid>
+
+                <Grid Grid.Row="1"
+                      Grid.Column="2"
+                      Margin="5, 10, 0, 0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <CheckBox x:Name="chkGroupByModule"
+                              Grid.Row="0"
+                              Margin="0, 5, 5, 5"
+                              Content="By Module"
+                              IsChecked="{Binding Path=GroupingByModule}" />
+
+                    <CheckBox x:Name="chkGroupByType"
+                              Grid.Row="1"
+                              Margin="0, 5, 5, 5"
+                              Content="By Type"
+                              IsChecked="{Binding Path=GroupingByType}" />
+
+                    <CheckBox x:Name="chkGroupByStatus"
+                              Grid.Row="2"
+                              Margin="0, 5, 5, 5"
+                              Content="By Status"
+                              IsChecked="{Binding Path=GroupingByStatus}" />
+                </Grid>
+            </Grid>
+
+            <Border Grid.Row="1"
+                    BorderBrush="{DynamicResource AccentColorBrush}"
+                    BorderThickness="0, 0, 0, 1">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0"
+                           Content="Commands"
+                           HorizontalAlignment="Stretch"
+                           FontSize="20" />
+
+                    <StackPanel Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+
+                        <metrocontrols:DropDownButton HorizontalAlignment="Right"
+                                                      Margin="0, 0, 5, 0"
+                                                      Content="Create Command"
+                                                      DisplayMemberPath="Name"
+                                                      ItemsSource="{Binding Path=CommandTypes, Mode=OneWay}"
+                                                      Orientation="Horizontal">
+                            <metrocontrols:DropDownButton.ItemContainerStyle>
+                                <Style TargetType="MenuItem">
+                                    <EventSetter Event="Click" Handler="CreateNewButtonClick_OnHandler" />
+                                </Style>
+                            </metrocontrols:DropDownButton.ItemContainerStyle>
+                        </metrocontrols:DropDownButton>
+
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <DataGrid Grid.Row="2"
+                      Grid.Column="0"
+                      x:Name="dataGridCommands"
+                      AutoGenerateColumns="False"
+                      HeadersVisibility="Column"
+                      ItemsSource="{Binding Path=CommandsView}"
+                      CanUserAddRows="False"
+                      CanUserDeleteRows="False"
+                      CanUserReorderColumns="True"
+                      CanUserResizeColumns="True"
+                      CanUserResizeRows="True"
+                      CanUserSortColumns="True"
+                      SelectionUnit="FullRow"
+                      BorderBrush="{DynamicResource AccentColorBrush}"
+                      BorderThickness="1, 0, 1, 1"
+                      HorizontalContentAlignment="Stretch"
+                      HorizontalAlignment="Stretch"
+                      Width="Auto"
+                      HorizontalScrollBarVisibility="Disabled">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected, Mode=OneWay}"
+                                            EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                            ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                            Header="" />
+                    <DataGridTextColumn Binding="{Binding Command.Configuration.Id, Mode=OneWay}" Header="Id" Width="Auto" />
+                    <DataGridTextColumn Binding="{Binding Command.Configuration.Name, Mode=OneWay}" Header="Name" Width="Auto" />
+                    <DataGridTextColumn Binding="{Binding Command.Configuration.Description, Mode=OneWay}" Header="Description"  Width="*" />
+                    <DataGridTextColumn Binding="{Binding CommandType, Converter={StaticResource TypeToNameConverter}, Mode=OneWay}" Header="Type" Width="Auto" />
+                    <DataGridTextColumn Binding="{Binding Command.Configuration.IsEnabled, Converter={StaticResource BooleanStringConverter}, ConverterParameter='Enabled|Disabled', Mode=OneWay}" Header="Status" Width="Auto">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="HorizontalAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Click="EditCommandButton_OnClick"
+                                            ToolTip="Edit Command"
+                                            Margin="5">
+                                        <Rectangle Width="20"
+                                                   Height="20"
+                                                   Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                            <Rectangle.OpacityMask>
+                                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_edit}" />
+                                            </Rectangle.OpacityMask>
+                                        </Rectangle>
+                                        <Button.Style>
+                                            <Style BasedOn="{StaticResource MetroButton}" TargetType="{x:Type Button}">
+                                                <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                    <Button Click="DeleteCommandButton_OnClick"
+                                            Margin="0, 5, 5, 5"
+                                            ToolTip="Delete Command">
+                                        <Rectangle Width="20"
+                                                   Height="20"
+                                                   Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                            <Rectangle.OpacityMask>
+                                                <VisualBrush Stretch="Fill" Visual="{DynamicResource appbar_delete}" />
+                                            </Rectangle.OpacityMask>
+                                        </Rectangle>
+                                        <Button.Style>
+                                            <Style BasedOn="{StaticResource MetroButton}" TargetType="{x:Type Button}">
+                                                <Setter Property="Foreground" Value="{DynamicResource AccentColorBrush}" />
+                                            </Style>
+                                        </Button.Style>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+                <DataGrid.Style>
+                    <Style BasedOn="{StaticResource MetroDataGrid}" TargetType="{x:Type DataGrid}">
+                        <Setter Property="AlternatingRowBackground" Value="{DynamicResource GrayBrush10}" />
+                    </Style>
+                </DataGrid.Style>
+                <DataGrid.RowStyle>
+                    <Style BasedOn="{StaticResource MetroDataGridRow}" TargetType="{x:Type DataGridRow}">
+                        <EventSetter Event="MouseDoubleClick" Handler="DataGridRowDoubleClick_OnHandler" />
+                    </Style>
+                </DataGrid.RowStyle>
+                <DataGrid.CellStyle>
+                    <Style BasedOn="{StaticResource MetroDataGridCell}" TargetType="{x:Type DataGridCell}">
+                        <Setter Property="Padding" Value="5" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                                    <Border Padding="{TemplateBinding Padding}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            Background="{TemplateBinding Background}"
+                                            SnapsToDevicePixels="True">
+                                        <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </DataGrid.CellStyle>
+                <DataGrid.GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.ContainerStyle>
+                            <Style BasedOn="{StaticResource groupStyleLevel0Expanded}" TargetType="{x:Type GroupItem}" />
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.ContainerStyle>
+                            <Style BasedOn="{StaticResource groupStyleLevel1Expanded}" TargetType="{x:Type GroupItem}" />
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                    <GroupStyle>
+                        <GroupStyle.ContainerStyle>
+                            <Style BasedOn="{StaticResource groupStyleLevel2Expanded}" TargetType="{x:Type GroupItem}" />
+                        </GroupStyle.ContainerStyle>
+                    </GroupStyle>
+                </DataGrid.GroupStyle>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</metrocontrols:MetroWindow>

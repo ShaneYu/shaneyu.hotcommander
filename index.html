@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width">
+
+  <title>HotCommander</title>
+
+  <!-- Flatdoc -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src='//cdn.rawgit.com/rstacruz/flatdoc/v0.9.0/legacy.js'></script>
+  <script src='//cdn.rawgit.com/rstacruz/flatdoc/v0.9.0/flatdoc.js'></script>
+
+  <!-- Flatdoc theme -->
+  <link  href='//cdn.rawgit.com/rstacruz/flatdoc/v0.9.0/theme-white/style.css' rel='stylesheet'>
+  <script src='//cdn.rawgit.com/rstacruz/flatdoc/v0.9.0/theme-white/script.js'></script>
+  <style type="text/css">
+    #hotcommander::before {
+      margin-top: 0!important;
+      border: none!important;
+      background: none!important;
+    }
+    #hotcommander {
+      padding-top: 25px;
+    }
+    p {
+      width: 700px!important;
+    }
+    .content-root {
+      background-color: inherit!important;
+      -webkit-box-shadow: none!important;
+      box-shadow: none!important;
+    }
+    .content-root pre {
+      width: auto!important;
+      padding-left: 40px!important;
+      padding-right: 0!important;
+      float: none!important;
+    }
+    .content {
+      width: auto!important;
+      max-width: none!important;
+    }
+    img.vaT {
+      vertical-align: top!important;
+      margin: 5px;
+    }
+  </style>
+
+  <!-- Meta -->
+  <meta content="HotCommander" property="og:title">
+  <meta content="HotCommander - A hotkey and voice activated command bar utility" name="description">
+
+  <!-- Initializer -->
+  <script>
+    Flatdoc.run({
+      fetcher: Flatdoc.file('README.md')
+    });
+  </script>
+</head>
+<body role='flatdoc'>
+
+  <div class='header'>
+    <div class='left'>
+      <h1>HotCommander</h1>
+      <ul>
+        <li><a href='//github.com/ShaneYu/ShaneYu.HotCommander'>View on GitHub</a></li>
+        <li><a href='//github.com/ShaneYu/ShaneYu.HotCommander/issues'>Issues</a></li>
+      </ul>
+    </div>
+    <div class='right'>
+      <iframe src="//ghbtns.com/github-btn.html?user=ShaneYu&amp;type=follow&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="170" height="20"></iframe>
+      <iframe src="//ghbtns.com/github-btn.html?user=ShaneYu&amp;repo=ShaneYu.HotCommander&amp;type=watch&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+    </div>
+  </div>
+
+  <div class='content-root'>
+    <div class='menubar'>
+      <div class='menu section' role='flatdoc-menu'></div>
+    </div>
+    <div role='flatdoc-content' class='content'></div>
+  </div>
+
+</body>
+</html>
