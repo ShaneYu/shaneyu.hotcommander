@@ -1,8 +1,8 @@
-[![Build](https://img.shields.io/appveyor/ci/ShaneYu/shaneyu-hotcommander-core-0bfs7.svg?label=core%20build)](https://ci.appveyor.com/project/shaneyu/shaneyu-hotcommander-core-0bfs7)
-[![NuGet](https://img.shields.io/nuget/vpre/ShaneYu.HotCommander.svg?label=core%20nuget)](https://www.nuget.org/packages/ShaneYu.HotCommander/)
-[![Build](https://img.shields.io/appveyor/ci/ShaneYu/shaneyu-hotcommander-ui-wpf.svg?label=ui%20build)](https://ci.appveyor.com/project/shaneyu/shaneyu-hotcommander-ui-wpf)
-[![Chocolatey](https://img.shields.io/chocolatey/v/HotCommander.svg?label=ui%20chocolately)](https://chocolatey.org/packages/HotCommander)
-[![Release](https://img.shields.io/github/release/ShaneYu/ShaneYu.HotCommander.svg?label=ui%20release)](https://github.com/ShaneYu/ShaneYu.HotCommander/releases/latest)
+[![Build](https://img.shields.io/appveyor/ci/ShaneYu/shaneyu-hotcommander-core-0bfs7.svg?label=build%20%28core%29)](https://ci.appveyor.com/project/shaneyu/shaneyu-hotcommander-core-0bfs7)
+[![Build](https://img.shields.io/appveyor/ci/ShaneYu/shaneyu-hotcommander-ui-wpf.svg?label=build%20%28ui%29)](https://ci.appveyor.com/project/shaneyu/shaneyu-hotcommander-ui-wpf)
+[![NuGet](https://img.shields.io/nuget/vpre/ShaneYu.HotCommander.Core.svg?label=nuget%20%28core%29)](https://www.nuget.org/packages/ShaneYu.HotCommander.Core/)
+[![Chocolatey](https://img.shields.io/chocolatey/v/HotCommander.svg?label=chocolately%20%28ui%29)](https://chocolatey.org/packages/HotCommander)
+[![Release](https://img.shields.io/github/release/ShaneYu/ShaneYu.HotCommander.svg?label=release%20%28ui%29)](https://github.com/ShaneYu/ShaneYu.HotCommander/releases/latest)
 [![Forks](https://img.shields.io/github/forks/ShaneYu/ShaneYu.HotCommander.svg)](https://github.com/ShaneYu/ShaneYu.HotCommander/network)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/ShaneYu/ShaneYu.HotCommander/master/LICENSE)
 
@@ -18,9 +18,9 @@ Getting started
 
 Several quick start options are available for development:
 
-+ Install with [NuGet](https://www.nuget.org): `nuget install ShaneYu.HotCommander`.
-+ Install with VS Nuget Package Manager: `Install-Package ShaneYu.HotCommander`.
-+ Clone the repo: `git clone https://github.com/shaneyu/ShaneYu.HotCommander.git`.
++ Install with [NuGet](https://www.nuget.org): `nuget install ShaneYu.HotCommander.Core`.
++ Install with VS Nuget Package Manager: `Install-Package ShaneYu.HotCommander.Core`.
++ Clone the repo: `git clone https://github.com/shaneyu/shaneyu.hotcommander.git`.
 
 Installing and running the WPF UI:
 
