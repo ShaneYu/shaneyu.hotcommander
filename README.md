@@ -1,10 +1,9 @@
-[![Build](https://img.shields.io/appveyor/ci/ShaneYu/shaneyu-hotcommander-core-0bfs7.svg?label=build%20%28core%29)](https://ci.appveyor.com/project/shaneyu/shaneyu-hotcommander-core-0bfs7)
-[![Build](https://img.shields.io/appveyor/ci/ShaneYu/shaneyu-hotcommander-ui-wpf.svg?label=build%20%28ui%29)](https://ci.appveyor.com/project/shaneyu/shaneyu-hotcommander-ui-wpf)
+[![Build](https://img.shields.io/appveyor/ci/ShaneYu/shaneyu-hotcommander.svg)](https://ci.appveyor.com/project/shaneyu/shaneyu-hotcommander)
 [![NuGet](https://img.shields.io/nuget/vpre/ShaneYu.HotCommander.Core.svg?label=nuget%20%28core%29)](https://www.nuget.org/packages/ShaneYu.HotCommander.Core/)
 [![Chocolatey](https://img.shields.io/chocolatey/v/HotCommander.svg?label=chocolately%20%28ui%29)](https://chocolatey.org/packages/HotCommander)
-[![Release](https://img.shields.io/github/release/ShaneYu/ShaneYu.HotCommander.svg?label=release%20%28ui%29)](https://github.com/ShaneYu/ShaneYu.HotCommander/releases/latest)
-[![Forks](https://img.shields.io/github/forks/ShaneYu/ShaneYu.HotCommander.svg)](https://github.com/ShaneYu/ShaneYu.HotCommander/network)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/ShaneYu/ShaneYu.HotCommander/master/LICENSE)
+[![Release](https://img.shields.io/github/release/ShaneYu/shaneyu.hotcommander.svg?label=release%20%28ui%29)](https://github.com/ShaneYu/shaneyu.hotcommander/releases/latest)
+[![Forks](https://img.shields.io/github/forks/ShaneYu/shaneyu.hotcommander.svg)](https://github.com/ShaneYu/shaneyu.hotcommander/network)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/ShaneYu/shaneyu.hotcommander/master/LICENSE)
 
 HotCommander
 =============

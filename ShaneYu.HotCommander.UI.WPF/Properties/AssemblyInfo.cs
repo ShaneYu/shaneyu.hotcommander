@@ -39,9 +39,9 @@ using System.Windows;
                                               // app, or any theme specific resource dictionaries)
 )]
 
-[assembly: AssemblyVersion("1.0.1")]
-[assembly: AssemblyFileVersion("1.0.1")]
-[assembly: AssemblyInformationalVersion("1.0.1-alpha2")]
+[assembly: AssemblyVersion("1.0.2.*")]
+[assembly: AssemblyFileVersion("1.0.2.*")]
+[assembly: AssemblyInformationalVersion("1.0.2.*")]
 [assembly: Guid("8DC30B2E-7AA0-4B25-A8DA-F1D93AA4EB0E")]
 [assembly: NeutralResourcesLanguage("en-GB")]
 
