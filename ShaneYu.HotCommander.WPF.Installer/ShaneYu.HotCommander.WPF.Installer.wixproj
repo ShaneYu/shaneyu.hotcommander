@@ -76,36 +76,29 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
-  <UsingTask TaskName="GetVersionParts" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+  <UsingTask TaskName="GetProductVersion" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
     <ParameterGroup>
       <AssemblyPath ParameterType="System.String" Required="true" />
-      <MajorVersion ParameterType="System.Int32" Output="true" />
-      <MinorVersion ParameterType="System.Int32" Output="true" />
-      <BuildVersion ParameterType="System.Int32" Output="true" />
+      <ProductVersion ParameterType="System.String" Output="true" />
     </ParameterGroup>
     <Task>
       <Using Namespace="System.Diagnostics" />
-      <Code Type="Fragment" Language="cs"><![CDATA[
-        Log.LogMessage("Getting version details of assembly at: " + this.AssemblyPath, MessageImportance.High);
-        
-        Version v = Version.Parse(FileVersionInfo.GetVersionInfo(this.AssemblyPath).FileVersion);
-        
-        this.MajorVersion = v.Major;
-        this.MinorVersion = v.Minor;
-        this.BuildVersion = v.Build;
-      ]]></Code>
+      <Code Type="Fragment" Language="cs">
+        <![CDATA[
+          Log.LogMessage("Getting version details of assembly at: " + this.AssemblyPath, MessageImportance.High);
+          this.ProductVersion = FileVersionInfo.GetVersionInfo(this.AssemblyPath).ProductVersion;
+        ]]>
+      </Code>
     </Task>
   </UsingTask>
   <Target Name="BeforeBuild">
-    <GetVersionParts AssemblyPath="..\ShaneYu.HotCommander.UI.WPF\bin\$(Platform)\$(Configuration)\HotCommander.exe">
-      <Output TaskParameter="MajorVersion" PropertyName="MajorVersionNumber" />
-      <Output TaskParameter="MinorVersion" PropertyName="MinorVersionNumber" />
-      <Output TaskParameter="BuildVersion" PropertyName="BuildVersionNumber" />
-    </GetVersionParts>
+    <GetProductVersion AssemblyPath="..\ShaneYu.HotCommander.UI.WPF\bin\$(Platform)\$(Configuration)\HotCommander.exe">
+      <Output TaskParameter="ProductVersion" PropertyName="ProductVersion" />
+    </GetProductVersion>
     <GetAssemblyIdentity AssemblyFiles="..\ShaneYu.HotCommander.UI.WPF\bin\$(Platform)\$(Configuration)\HotCommander.exe">
       <Output TaskParameter="Assemblies" ItemName="AssemblyVersions" />
     </GetAssemblyIdentity>
-    <CreateProperty Value="$(OutputName)_%(AssemblyVersions.Version)_$(Platform)-$(MajorVersionNumber)">
+    <CreateProperty Value="$(OutputName)_$(ProductVersion)_$(Platform)">
       <Output TaskParameter="Value" PropertyName="TargetName" />
     </CreateProperty>
     <CreateProperty Value="$(TargetName)$(TargetExt)">
@@ -115,7 +108,7 @@
       <Output TaskParameter="Value" PropertyName="TargetPath" />
     </CreateProperty>
     <PropertyGroup>
-      <DefineConstants>$(DefineConstants);AssemblyVersion=%(AssemblyVersions.Version)</DefineConstants>
+      <DefineConstants>$(DefineConstants);AssemblyVersion=%(AssemblyVersions.Version);ProductVersion=$(ProductVersion)</DefineConstants>
     </PropertyGroup>
   </Target>
 </Project>
