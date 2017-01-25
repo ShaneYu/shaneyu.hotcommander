@@ -149,6 +149,9 @@ namespace ShaneYu.HotCommander.UI.WPF
             commandManager.Register(new ConfigureCommand());
             commandManager.Register(new SetThemeBaseCommand());
             commandManager.Register(new SetThemeAccentCommand());
+            commandManager.Register(new GithubCommand());
+            commandManager.Register(new IssuesCommand());
+            commandManager.Register(new ReleasesCommand());
         }
 
         private void UnregisterHotKey()

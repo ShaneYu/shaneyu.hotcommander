@@ -165,6 +165,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Commands\ConfigureCommand.cs" />
+    <Compile Include="Commands\ReleasesCommand.cs" />
+    <Compile Include="Commands\IssuesCommand.cs" />
+    <Compile Include="Commands\GithubCommand.cs" />
     <Compile Include="Commands\QuitCommand.cs" />
     <Compile Include="Commands\ReloadCommand.cs" />
     <Compile Include="Commands\SetThemeAccentCommand.cs" />
