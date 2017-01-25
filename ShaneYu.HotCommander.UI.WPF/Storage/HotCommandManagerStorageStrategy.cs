@@ -45,6 +45,18 @@ namespace ShaneYu.HotCommander.UI.WPF.Storage
 
         #region Private Methods
 
+        private static Guid? TryParseGuid(string value)
+        {
+            Guid outGuid;
+
+            if (Guid.TryParse(value, out outGuid))
+            {
+                return outGuid;
+            }
+
+            return null;
+        }
+
         private LoadCommandResult LoadCommand(Guid id)
         {
             var filePath = Environment.ExpandEnvironmentVariables($"{App.Current.DataDirectory}\\Commands\\{id}.json");
@@ -250,7 +262,9 @@ namespace ShaneYu.HotCommander.UI.WPF.Storage
             var cmdIds = from filePath in Directory.GetFiles(commandDirectory, "*.json", SearchOption.TopDirectoryOnly)
                          let strGuid = Path.GetFileNameWithoutExtension(filePath)
                          where !string.IsNullOrWhiteSpace(strGuid)
-                         select new Guid(strGuid);
+                         let guid = TryParseGuid(strGuid)
+                         where guid.HasValue
+                         select guid.Value;
 
             return (await LoadAsync(cmdIds)).Items;
         }
