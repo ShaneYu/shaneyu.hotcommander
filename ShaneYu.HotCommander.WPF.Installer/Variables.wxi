@@ -4,8 +4,6 @@
   <?define ProductCode = "*" ?>
   <?define UpgradeCode = "93ABB05D-9502-4EB3-8B22-DE67A1F4A4DB" ?>
   
-  <?define ProductVersion = "$(var.AssemblyVersion)" ?>
-  
   <?define InfoURL="https://hc.shaneyu.com/" ?>
   
   <?if $(var.Platform) = x64 ?>

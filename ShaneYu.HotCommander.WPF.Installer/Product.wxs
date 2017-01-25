@@ -8,7 +8,7 @@
   <!-- The upgrade code must never change as long as the product lives.  -->
   <Product Id="$(var.ProductCode)"
            UpgradeCode="$(var.UpgradeCode)"
-           Version="$(var.ProductVersion)"
+           Version="$(var.AssemblyVersion)"
            Name="!(loc.ProductName)"
            Language="!(loc.Language)"
            Manufacturer="!(loc.ProductManufacturer)">
