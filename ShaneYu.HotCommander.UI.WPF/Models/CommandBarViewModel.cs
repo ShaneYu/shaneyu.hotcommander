@@ -239,10 +239,15 @@ namespace ShaneYu.HotCommander.UI.WPF.Models
             SelectedResult = SearchResults.LastOrDefault();
         }
 
+        public void NextPartOrExecute()
+        {
+            Execute(false);
+        }
+
         /// <summary>
         /// Execute command of selected result.
         /// </summary>
-        public void Execute()
+        public void Execute(bool executeDefaults = true)
         {
             if (_lockedCommand == null && SelectedResult?.Tag != null)
             {
@@ -251,18 +256,18 @@ namespace ShaneYu.HotCommander.UI.WPF.Models
 
                 if (_lockedCommand != null)
                 {
-                    _currentStep = _lockedCommand.NextStep;
-
-                    if (_currentStep == null)
+                    if (_lockedCommand.NextStep == null || (!_lockedCommand.NextStep.IsRequired && executeDefaults))
                     {
                         _lockedCommand.Execute();
+                        _lockedCommand.NextStep?.Reset();
                         _lockedCommand = null;
-                        SearchTerm = string.Empty;
                         LockedParts.Clear();
+                        SearchTerm = string.Empty;
                         PerformSearch();
                     }
                     else
                     {
+                        _currentStep = _lockedCommand.NextStep;
                         LockedParts.Add(_lockedCommand.Configuration.Name);
                         SearchTerm = string.Empty;
                         PerformSearch();
@@ -271,7 +276,7 @@ namespace ShaneYu.HotCommander.UI.WPF.Models
             }
             else if (_lockedCommand != null && _currentStep != null)
             {
-                if (SelectedResult != null)
+                if (_currentStep.Options != null && SelectedResult != null)
                 {
                     _currentStep.SetData(SelectedResult.Text);
                 }
@@ -288,22 +293,22 @@ namespace ShaneYu.HotCommander.UI.WPF.Models
                     return;
                 }
 
-                if (_currentStep.NextStep != null)
+                if (_currentStep.NextStep == null || (!_currentStep.NextStep.IsRequired && executeDefaults))
                 {
-                    LockedParts.Add(_currentStep.Data);
-                    _currentStep = _currentStep.NextStep;
+                    _lockedCommand.Execute();
+                    _lockedCommand.NextStep.Reset();
+                    _lockedCommand = null;
+                    _currentStep = null;
+                    LockedParts.Clear();
                     SearchTerm = string.Empty;
                     PerformSearch();
                 }
                 else
                 {
-                    _lockedCommand.Execute();
-                    _lockedCommand.NextStep.Reset();
-                    _currentStep = null;
-                    _lockedCommand = null;
+                    LockedParts.Add(_currentStep.Data);
+                    _currentStep = _currentStep.NextStep;
                     SearchTerm = string.Empty;
                     PerformSearch();
-                    LockedParts.Clear();
                 }
             }
         }

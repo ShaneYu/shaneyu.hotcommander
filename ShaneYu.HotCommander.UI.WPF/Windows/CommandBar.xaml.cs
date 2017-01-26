@@ -93,7 +93,13 @@ namespace ShaneYu.HotCommander.UI.WPF.Windows
                     _viewModel.Last();
                     break;
 
+                case Key.Tab:
+                    e.Handled = true;
+                    _viewModel.NextPartOrExecute();
+                    break;
+
                 case Key.Enter:
+                    e.Handled = true;
                     _viewModel.Execute();
                     if (_viewModel.LockedParts.Count == 0)
                     {
