@@ -91,6 +91,8 @@ namespace ShaneYu.HotCommander.UI.WPF.Storage
                 var cmd = (IHotCommand<IHotCommandConfiguration>)JsonConvert.DeserializeObject(cmdJson,
                     new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All, MissingMemberHandling = MissingMemberHandling.Ignore });
 
+                _logger.Info("Command '{0}' of type '{1}' has been loaded successfully from '{2}.json'", cmd.Configuration.Name, cmd.GetType().Name, id);
+
                 return new LoadCommandResult { Command = cmd };
             }
             catch (Exception ex)
@@ -148,6 +150,8 @@ namespace ShaneYu.HotCommander.UI.WPF.Storage
                     "Unable to save command; file doesn't exist after performing save operation.");
             }
 
+            _logger.Info("Command '{0}' of type '{1}' has been saved successfully to '{2}.json'", command.Configuration.Name, command.GetType().Name, command.Configuration.Id);
+
             return null;
         }
 
@@ -178,6 +182,8 @@ namespace ShaneYu.HotCommander.UI.WPF.Storage
                         "Unable to delete command file. The file persists after performing delete operation.");
                 }
             }
+
+            _logger.Info("File '{2}.json' for command '{0}' of type '{1}' has been deleted", command.Configuration.Name, command.GetType().Name, command.Configuration.Id);
 
             return null;
         }
