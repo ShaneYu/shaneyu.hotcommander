@@ -29,7 +29,7 @@ namespace ShaneYu.HotCommander.UI.WPF.Searching
 
             var textBlocks = new List<TextBlock>();
 
-            var pattern1 = $"^{string.Concat(searchTerm.ToUpper().Select(x => $"({Regex.Escape(x.ToString())})[\\.:a-z0-9\\s]*"))}.*$";
+            var pattern1 = $"^{string.Concat(searchTerm.ToUpper().Select(x => $"({Regex.Escape(x.ToString())})[\\.:\\(\\)\\[\\]<>{{}}a-z0-9\\s]*"))}.*$";
             var regex1 = new Regex(pattern1);
 
             var pattern2 = $"^((?<match>{Regex.Escape(searchTerm)})|.*(?<match>{Regex.Escape(searchTerm)}).*).*$";
