@@ -259,7 +259,7 @@ namespace ShaneYu.HotCommander.UI.WPF.Models
                     if (_lockedCommand.NextStep == null || (!_lockedCommand.NextStep.IsRequired && executeDefaults))
                     {
                         _lockedCommand.Execute();
-                        _lockedCommand.NextStep?.Reset();
+                        _lockedCommand?.NextStep?.Reset();
                         _lockedCommand = null;
                         LockedParts.Clear();
                         SearchTerm = string.Empty;
@@ -296,7 +296,7 @@ namespace ShaneYu.HotCommander.UI.WPF.Models
                 if (_currentStep.NextStep == null || (!_currentStep.NextStep.IsRequired && executeDefaults))
                 {
                     _lockedCommand.Execute();
-                    _lockedCommand.NextStep.Reset();
+                    _lockedCommand?.NextStep.Reset();
                     _lockedCommand = null;
                     _currentStep = null;
                     LockedParts.Clear();

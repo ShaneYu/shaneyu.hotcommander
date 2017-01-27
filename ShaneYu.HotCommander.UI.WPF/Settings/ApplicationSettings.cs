@@ -27,11 +27,12 @@ namespace ShaneYu.HotCommander.UI.WPF.Settings
         private string _baseTheme = "Light";
         private int _maxVisibleResults = 6;
         private float _barWidth = 600;
-        private bool _barWidthIsPercent = false;
+        private bool _barWidthIsPercent;
         private float _barOffsetTop = 15;
         private bool _barOffsetTopIsPercent = true;
         private float _barOffsetBottom = 15;
         private bool _barOffsetBottomIsPercent = true;
+        private bool _startWithWindows;
 
         #endregion
 
@@ -258,7 +259,7 @@ namespace ShaneYu.HotCommander.UI.WPF.Settings
         }
 
         /// <summary>
-        /// Gets or sets te hot key.
+        /// Gets or sets the hot key.
         /// </summary>
         [DisplayGroup("Behavior")]
         [DisplayOrder(0)]
@@ -278,6 +279,40 @@ namespace ShaneYu.HotCommander.UI.WPF.Settings
                     ModifierKeys = value.ModifierKeys;
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets or sets whether to startup with windows
+        /// </summary>
+        [DisplayGroup("Behavior")]
+        [DisplayOrder(1)]
+        [Description("Determines whether or not to launch the application on Windows startup.")]
+        [JsonIgnore]
+        public bool StartupWithWindows
+        {
+            get { return _startWithWindows; }
+            set
+            {
+                if (!Equals(_startWithWindows, value))
+                {
+                    _startWithWindows = value;
+                    RaisePropertyChanged();
+
+                    if (_startWithWindows)
+                        StartUpManager.AddApplicationToCurrentUserStartup();
+                    else
+                        StartUpManager.RemoveApplicationFromCurrentUserStartup();
+                }
+            }
+        }
+
+        #endregion
+
+        #region Constructors
+
+        public ApplicationSettings()
+        {
+            _startWithWindows = StartUpManager.IsApplicationRegisteredToStartupWithWindows();
         }
 
         #endregion
